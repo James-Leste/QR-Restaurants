@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/my_button.dart';
 
@@ -6,8 +7,7 @@ import 'package:flutter_test_project/components/my_inputField.dart';
 import 'package:flutter_test_project/components/square_tile.dart';
 
 class RegisterPage extends StatefulWidget {
-  final Function()? onTap;
-  RegisterPage({super.key, required this.onTap});
+  RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void signUp() async {
-    showDialog(
+    showCupertinoDialog(
         context: context,
         builder: (context) {
           return const Center(
@@ -47,21 +47,24 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void failedMessage(String message) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            icon: Icon(Icons.error),
-            title: Text(message),
-          );
-        });
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Icon(Icons.error),
+          content: Text(message),
+          insetAnimationDuration: const Duration(seconds: 1),
+        );
+      },
+      barrierDismissible: true,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CupertinoPageScaffold(
         backgroundColor: Colors.grey[300],
-        body: SafeArea(
+        child: SafeArea(
             child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,8 +73,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.symmetric(vertical: 50),
                 child: Column(
                   children: [
-                    const Icon(Icons.lock, size: 100),
-                    const SizedBox(height: 50),
+                    Icon(
+                      Icons.app_registration,
+                      size: 100,
+                    ),
+                    const SizedBox(height: 40),
                     Text(
                       "Get a new account",
                       style: TextStyle(color: Colors.grey[700], fontSize: 16),
@@ -153,7 +159,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(width: 4),
                         GestureDetector(
-                          onTap: widget.onTap,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
                           child: Text('Login Now',
                               style: TextStyle(
                                   color: Colors.blue,

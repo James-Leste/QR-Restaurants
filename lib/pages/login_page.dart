@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_test_project/pages/register_page.dart';
 import '../components/my_inputField.dart';
 import '../components/my_button.dart';
 import '../components/square_tile.dart';
 
 class LoginPage extends StatefulWidget {
-  final Function()? onTap;
-  LoginPage({super.key, required this.onTap});
+  //final Function()? onTap;
+  LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   void signin() async {
-    showDialog(
+    showCupertinoDialog(
         context: context,
         builder: (context) {
           return const Center(
@@ -38,14 +40,19 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void failedMessage(String message) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            icon: Icon(Icons.error),
-            title: Text(message),
-          );
-        });
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Icon(CupertinoIcons.bell),
+          content: Text(
+            message,
+            style: TextStyle(fontSize: 24),
+          ),
+        );
+      },
+      barrierDismissible: true,
+    );
   }
 
   void printMessage() {
@@ -54,9 +61,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CupertinoPageScaffold(
         backgroundColor: Colors.grey[300],
-        body: SafeArea(
+        child: SafeArea(
             child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -65,8 +72,11 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(vertical: 50.0),
                   child: Column(
                     children: [
-                      const Icon(Icons.lock, size: 100),
-                      const SizedBox(height: 50),
+                      Icon(
+                        Icons.lock_person,
+                        size: 100,
+                      ),
+                      const SizedBox(height: 40),
                       Text(
                         "Sign in with an existing account",
                         style: TextStyle(color: Colors.grey[700], fontSize: 16),
@@ -157,7 +167,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(width: 4),
                       GestureDetector(
-                        onTap: widget.onTap,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => RegisterPage()));
+                        },
                         child: Text('Register now',
                             style: TextStyle(
                                 color: Colors.blue,
