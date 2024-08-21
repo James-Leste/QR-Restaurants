@@ -15,14 +15,19 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(items: [
-          BottomNavigationBarItem(
-              label: 'Stock', icon: Icon(CupertinoIcons.list_bullet)),
-          BottomNavigationBarItem(
-              label: 'Personal', icon: Icon(CupertinoIcons.person)),
-          BottomNavigationBarItem(
-              label: 'Home', icon: Icon(CupertinoIcons.home))
-        ]),
+        tabBar: CupertinoTabBar(
+          items: [
+            BottomNavigationBarItem(
+                label: 'Menu', icon: Icon(CupertinoIcons.list_bullet)),
+            BottomNavigationBarItem(
+                label: 'Personal', icon: Icon(CupertinoIcons.person)),
+            BottomNavigationBarItem(
+                label: 'My Basket', icon: Icon(CupertinoIcons.cart)),
+            BottomNavigationBarItem(
+                label: 'Setting', icon: Icon(CupertinoIcons.settings))
+          ],
+          height: 60,
+        ),
 
         tabBuilder: (context, index) {
           switch (index) {

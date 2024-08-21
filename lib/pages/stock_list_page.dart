@@ -12,10 +12,18 @@ class StockListPage extends StatelessWidget {
     await FirebaseAuth.instance.signOut();
   }
 
+  void onTap() {
+    print('clicked');
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        middle: Text(
+          "Menu",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         trailing: IconButton(onPressed: signout, icon: Icon(Icons.logout)),
       ),
       child: SafeArea(
@@ -29,7 +37,9 @@ class StockListPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Center(
-                          child: StockItem(imagePath: 'lib/images/google.png')),
+                          child: StockItem(
+                              imagePath: 'lib/images/google.png',
+                              onTap: onTap)),
                     );
                   },
                 ),

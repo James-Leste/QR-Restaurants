@@ -13,7 +13,7 @@ class StockItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.only(top: 50),
-        margin: EdgeInsets.symmetric(horizontal: 30),
+        //margin: EdgeInsets.symmetric(horizontal: ),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(60),
             color: Colors.grey.shade100),
@@ -34,12 +34,14 @@ class StockItem extends StatelessWidget {
                 CupertinoButton(
                     onPressed: onTap,
                     child: Icon(
+                      size: 35,
                       CupertinoIcons.add,
                       color: Colors.black,
                     )),
                 CupertinoButton(
                     onPressed: onTap,
                     child: Icon(
+                      size: 35,
                       CupertinoIcons.minus,
                       color: Colors.black,
                     ))
