@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/my_button.dart';
 
 import 'package:flutter_test_project/components/my_inputField.dart';
+import 'package:flutter_test_project/components/notification_card.dart';
 import 'package:flutter_test_project/components/square_tile.dart';
+import 'package:flutter_test_project/services/auth/auth_services.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function interfaceSwitch;
@@ -24,6 +26,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void signUp(context) async {
+    final _AuthService = AuthServices();
+
     showCupertinoDialog(
         context: context,
         builder: (context) {
@@ -34,16 +38,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text);
+        await _AuthService.signUpWithEmailAndPassword(
+            emailController.text, passwordController.text);
         Navigator.pop(context);
       } else {
         Navigator.pop(context);
         failedMessage("Password is not consistent");
       }
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       Navigator.pop(context);
-      failedMessage(e.code);
+      failedMessage(e.toString());
     }
   }
 
@@ -51,11 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
     showCupertinoDialog(
       context: context,
       builder: (context) {
-        return CupertinoAlertDialog(
-          title: Icon(Icons.error),
-          content: Text(message),
-          insetAnimationDuration: const Duration(seconds: 1),
-        );
+        return NotificationCard(message: message, icon: Icons.error);
       },
       barrierDismissible: true,
     );

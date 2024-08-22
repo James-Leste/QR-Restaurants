@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_test_project/components/notification_card.dart';
+import 'package:flutter_test_project/services/auth/auth_services.dart';
 
 import '../components/my_inputField.dart';
 import '../components/my_button.dart';
@@ -20,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   void signin() async {
+    final _AuthService = AuthServices();
     showCupertinoDialog(
         context: context,
         builder: (context) {
@@ -28,14 +31,12 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-
+      await _AuthService.signInWithEmailAndPassword(
+          emailController.text, passwordController.text);
       Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       Navigator.pop(context);
-      print(e.code);
-      failedMessage(e.code);
+      failedMessage(e.toString());
     }
   }
 
@@ -43,13 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     showCupertinoDialog(
       context: context,
       builder: (context) {
-        return CupertinoAlertDialog(
-          title: Icon(CupertinoIcons.bell),
-          content: Text(
-            message,
-            style: TextStyle(fontSize: 24),
-          ),
-        );
+        return NotificationCard(message: message, icon: Icons.error);
       },
       barrierDismissible: true,
     );
