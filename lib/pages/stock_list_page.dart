@@ -27,25 +27,28 @@ class StockListPage extends StatelessWidget {
         trailing: IconButton(onPressed: signout, icon: Icon(Icons.logout)),
       ),
       child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Scrollbar(
-                child: ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Center(
-                          child: StockItem(
-                              imagePath: 'lib/images/google.png',
-                              onTap: onTap)),
-                    );
-                  },
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Scrollbar(
+                  child: ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Center(
+                            child: StockItem(
+                                imagePath: 'lib/images/google.png',
+                                onTap: onTap)),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

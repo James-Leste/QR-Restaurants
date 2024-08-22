@@ -16,7 +16,7 @@ class StockItem extends StatelessWidget {
         //margin: EdgeInsets.symmetric(horizontal: ),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(60),
-            color: Colors.grey.shade100),
+            color: Colors.blue.shade200),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

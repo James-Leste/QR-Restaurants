@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_test_project/pages/register_page.dart';
+
 import '../components/my_inputField.dart';
 import '../components/my_button.dart';
 import '../components/square_tile.dart';
 
 class LoginPage extends StatefulWidget {
-  //final Function()? onTap;
-  LoginPage({super.key});
+  final Function interfaceSwitch;
+  LoginPage({super.key, required this.interfaceSwitch});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -168,10 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(width: 4),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => RegisterPage()));
+                          widget.interfaceSwitch();
                         },
                         child: Text('Register now',
                             style: TextStyle(

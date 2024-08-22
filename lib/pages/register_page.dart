@@ -7,7 +7,8 @@ import 'package:flutter_test_project/components/my_inputField.dart';
 import 'package:flutter_test_project/components/square_tile.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({super.key});
+  final Function interfaceSwitch;
+  RegisterPage({super.key, required this.interfaceSwitch});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -22,12 +23,12 @@ class _RegisterPageState extends State<RegisterPage> {
     print("other");
   }
 
-  void signUp() async {
+  void signUp(context) async {
     showCupertinoDialog(
         context: context,
         builder: (context) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CupertinoActivityIndicator(),
           );
         });
 
@@ -107,7 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true),
                     const SizedBox(height: 25),
                     MyButton(
-                      onTap: signUp,
+                      onTap: () => signUp(context),
                       buttonLabel: 'Sign Up',
                     ),
                     const SizedBox(height: 25),
@@ -160,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
+                            widget.interfaceSwitch();
                           },
                           child: Text('Login Now',
                               style: TextStyle(

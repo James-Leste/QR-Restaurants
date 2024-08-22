@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_test_project/pages/setting_page.dart';
 import 'package:flutter_test_project/pages/stock_list_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
             BottomNavigationBarItem(
                 label: 'My Basket', icon: Icon(CupertinoIcons.cart)),
             BottomNavigationBarItem(
-                label: 'Setting', icon: Icon(CupertinoIcons.settings))
+                label: 'Settings', icon: Icon(CupertinoIcons.settings))
           ],
           height: 60,
         ),
@@ -35,6 +36,8 @@ class HomePage extends StatelessWidget {
               return CupertinoTabView(builder: (contenxt) => StockListPage());
             case 1:
               return Center(child: Text('Logged In as: ${user.email!}'));
+            case 3:
+              return CupertinoTabView(builder: (contenxt) => SettingPage());
             default:
               return Center(child: Text('no'));
           }
