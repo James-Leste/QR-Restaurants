@@ -13,56 +13,58 @@ class BasketPage extends StatelessWidget {
   final String restaurantName = "Sunny Restaurant";
   @override
   Widget build(BuildContext context) {
-    var order = context.read<OrderModel>();
-    return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(
-            'Menu: $restaurantName',
-            style: TextStyle(fontSize: 20),
+    return Consumer<OrderModel>(builder: (context, order, child) {
+      return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text(
+              'Menu: $restaurantName',
+              style: TextStyle(fontSize: 20),
+            ),
           ),
-        ),
-        child: SafeArea(
-            child: Container(
-          decoration: BoxDecoration(color: Colors.white),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Scrollbar(
-                  child: ListView.builder(
-                    itemCount: order.items.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Center(
-                          child: StockItem(
-                              imagePath: 'lib/images/cutlery.png',
-                              food: order.items.elementAt(index).food,
-                              add: () {
-                                String foodId =
-                                    restaurant.menu.elementAt(index).id;
-                                print('add one $foodId ');
-                                //addToOrder(foodId);
-                              },
-                              cut: () {
-                                String foodId =
-                                    restaurant.menu.elementAt(index).id;
-                                print('remove one $foodId ');
-                                //removeItem(foodId);
-                              },
-                              count: 0
-                              // context.watch<OrderModel>().basket.isEmpty
-                              //     ? 0
-                              //     : context.watch<OrderModel>().basket[
-                              //         restaurant.foodList.elementAt(index).id]!,
-                              ),
-                        ),
-                      );
-                    },
+          child: SafeArea(
+              child: Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Scrollbar(
+                    child: ListView.builder(
+                      itemCount: order.items.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Center(
+                            child: StockItem(
+                                imagePath: 'lib/images/cutlery.png',
+                                food: order.items.elementAt(index).food,
+                                add: () {
+                                  String foodId = order.itemIds[index];
+                                  print('add one $foodId ');
+                                  order.addItemToOrder(foodId);
+                                },
+                                cut: () {
+                                  String foodId = order.itemIds[index];
+                                  print('remove one $foodId ');
+                                  order.removeItemFromOrder(foodId);
+                                },
+                                count: order.items.isEmpty
+                                    ? 0
+                                    : order
+                                        .getQuantityById(order.itemIds[index])
+                                // context.watch<OrderModel>().basket.isEmpty
+                                //     ? 0
+                                //     : context.watch<OrderModel>().basket[
+                                //         restaurant.foodList.elementAt(index).id]!,
+                                ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        )));
+              ],
+            ),
+          )));
+    });
   }
 }
