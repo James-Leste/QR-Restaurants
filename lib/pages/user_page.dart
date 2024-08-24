@@ -9,31 +9,32 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Theme(
-      // Create a unique theme with `ThemeData`.
-      data: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pink,
-        ),
-      ),
-      child: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
-    );
-
     return SafeArea(
         child: CupertinoPageScaffold(
-            child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Email: ${user.email}',
-        ),
-        Text('xxx ${user.displayName}'),
-        Text('Displayed name: ${user.displayName}'),
-        Text('Displayed name: ${user.displayName}')
-      ],
+            child: DefaultTextStyle(
+      style: TextStyle(fontSize: 25, color: Colors.black),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Email: ${user.email}',
+          ),
+          SizedBox(height: 20),
+          Text('Displayed name: ${user.displayName}'),
+          SizedBox(height: 20),
+          Text('Verified? ${user.emailVerified}'),
+          SizedBox(height: 20),
+          Text('refreshToken: ${user.refreshToken}'),
+          SizedBox(height: 20),
+          Text('Displayed name: ${user.displayName}'),
+          SizedBox(height: 20),
+          Text('Displayed name: ${user.displayName}'),
+          SizedBox(height: 20),
+          Text('Displayed name: ${user.displayName}'),
+          SizedBox(height: 20),
+          Text('Displayed name: ${user.displayName}'),
+        ],
+      ),
     )));
   }
 }
