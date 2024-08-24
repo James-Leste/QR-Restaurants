@@ -30,10 +30,10 @@ class StockItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  padding: EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                  padding: EdgeInsets.only(bottom: 20, right: 30, left: 20),
                   child: Image.asset(
                     imagePath,
                     height: 80,
@@ -42,8 +42,9 @@ class StockItem extends StatelessWidget {
                 ),
                 Flexible(
                   child: Container(
-                      height: 120,
-                      padding: EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                      //height: 120,
+                      width: 150,
+                      padding: EdgeInsets.only(bottom: 20, right: 20, left: 30),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

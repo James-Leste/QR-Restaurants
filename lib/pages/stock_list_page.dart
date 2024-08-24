@@ -11,7 +11,6 @@ class StockListPage extends StatelessWidget {
   StockListPage({super.key});
 
   final restaurant = RestaurantModel();
-  final order = OrderModel();
 
   void onTap() {
     print('clicked');
@@ -21,7 +20,7 @@ class StockListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var order = context.read<OrderModel>();
+    var order = context.watch<OrderModel>();
 
     void addToOrder(String id) {
       order.addItemToOrder(id);
@@ -68,7 +67,10 @@ class StockListPage extends StatelessWidget {
                                 print('remove one $foodId ');
                                 removeItem(foodId);
                               },
-                              count: 0
+                              count: order.items.isEmpty
+                                  ? 0
+                                  : order.getQuantityById(
+                                      restaurant.menu.elementAt(index).id)
                               // context.watch<OrderModel>().basket.isEmpty
                               //     ? 0
                               //     : context.watch<OrderModel>().basket[

@@ -44,8 +44,20 @@ class OrderModel extends ChangeNotifier {
       if (existItem.quantity == 0) {
         items.remove(existItem);
       }
+      notifyListeners();
     } else {
       print('no such food found in cart');
+    }
+  }
+
+  int get itemNumber =>
+      items.map((item) => item.quantity).toList().reduce((x, y) => x + y);
+
+  int getQuantityById(String id) {
+    if (!itemIds.contains(id)) {
+      return 0;
+    } else {
+      return items.firstWhere((item) => item.food.id == id).quantity;
     }
   }
 }
