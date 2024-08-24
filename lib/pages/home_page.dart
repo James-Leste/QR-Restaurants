@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_test_project/pages/basket_page.dart';
 import 'package:flutter_test_project/pages/setting_page.dart';
 import 'package:flutter_test_project/pages/stock_list_page.dart';
 
@@ -36,6 +37,8 @@ class HomePage extends StatelessWidget {
               return CupertinoTabView(builder: (contenxt) => StockListPage());
             case 1:
               return Center(child: Text('Logged In as: ${user.email!}'));
+            case 2:
+              return CupertinoTabView(builder: (context) => BasketPage());
             case 3:
               return CupertinoTabView(builder: (contenxt) => SettingPage());
             default:
