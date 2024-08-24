@@ -22,12 +22,10 @@ class BasketPage extends StatelessWidget {
             ),
           ),
           child: SafeArea(
-              child: Container(
-            decoration: BoxDecoration(color: Colors.white),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
+                  flex: 9,
                   child: Scrollbar(
                     child: ListView.builder(
                       itemCount: order.items.length,
@@ -62,9 +60,28 @@ class BasketPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Flexible(
+                    flex: 1,
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Price: ${order.totalPrice} Euro',
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        SizedBox(width: 30),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              size: 50,
+                              Icons.shopping_cart_checkout,
+                            ))
+                      ],
+                    )))
               ],
             ),
-          )));
+          ));
     });
   }
 }

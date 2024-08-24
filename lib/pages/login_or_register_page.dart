@@ -9,7 +9,7 @@ class LoginOrRegisterPage extends StatefulWidget {
 }
 
 class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
-  bool interfaceSwitch = false;
+  bool interfaceSwitch = true;
 
   void changeInterface() {
     setState(() {

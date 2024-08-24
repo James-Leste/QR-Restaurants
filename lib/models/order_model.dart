@@ -7,6 +7,8 @@ class OrderModel extends ChangeNotifier {
   RestaurantModel _restaurantModel = RestaurantModel();
 
   final List<OrderItemModel> items = [];
+  late DateTime orderTime;
+  late String UUID;
 
   RestaurantModel get restaurant => _restaurantModel;
 
@@ -50,9 +52,11 @@ class OrderModel extends ChangeNotifier {
     }
   }
 
+  // get total item number
   int get itemNumber =>
       items.map((item) => item.quantity).toList().reduce((x, y) => x + y);
 
+  // get item count by the itemId
   int getQuantityById(String id) {
     if (!itemIds.contains(id)) {
       return 0;
@@ -60,6 +64,14 @@ class OrderModel extends ChangeNotifier {
       return items.firstWhere((item) => item.food.id == id).quantity;
     }
   }
+
+  // get the total price of the order
+  double get totalPrice => items.isEmpty
+      ? 0
+      : items
+          .map((item) => item.food.price * item.quantity)
+          .toList()
+          .reduce((x, y) => x + y);
 }
 
 class OrderItemModel {
