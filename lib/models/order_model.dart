@@ -1,16 +1,58 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test_project/models/food.dart';
 import 'package:flutter_test_project/models/restaurant_model.dart';
 
 class OrderModel extends ChangeNotifier {
-  RestaurantModel _restaurantModel = RestaurantModel();
+  RestaurantModel _restaurantModel =
+      RestaurantModel(name: 'Sunny Restaurant', location: "Otaniemi");
 
-  final List<OrderItemModel> items = [];
-  late DateTime orderTime;
-  late String UUID;
+  List<OrderItemModel> items;
+  DateTime? orderTime;
+  String? userId;
+  String? orderId;
+  double? totalPrice;
 
   RestaurantModel get restaurant => _restaurantModel;
+
+  OrderModel.newOrder()
+      : items = [],
+        totalPrice = 0;
+
+  OrderModel(
+      {required this.items,
+      this.orderTime,
+      this.userId,
+      this.orderId,
+      this.totalPrice});
+
+  factory OrderModel.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return OrderModel(
+      userId: data?['userId'],
+      orderId: data?['orderId'],
+      orderTime: data?['orderTime'],
+      totalPrice: data?['totalPrice'],
+      items: (data?['items'] as List<dynamic>)
+          .map((item) =>
+              OrderItemModel.fromFirestore(item as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'userId': userId,
+      'orderId': orderId,
+      'orderTime': orderTime,
+      'totalPrice': totalPrice,
+      'items': items.map((item) => item.toFirestore()).toList(),
+    };
+  }
 
   set catalog(RestaurantModel newRestaurant) {
     _restaurantModel = newRestaurant;
@@ -52,6 +94,11 @@ class OrderModel extends ChangeNotifier {
     }
   }
 
+  void clearCart() {
+    items.clear();
+    notifyListeners();
+  }
+
   // get total item number
   int get itemNumber =>
       items.map((item) => item.quantity).toList().reduce((x, y) => x + y);
@@ -66,7 +113,7 @@ class OrderModel extends ChangeNotifier {
   }
 
   // get the total price of the order
-  double get totalPrice => items.isEmpty
+  double get total => items.isEmpty
       ? 0
       : items
           .map((item) => item.food.price * item.quantity)
@@ -75,18 +122,24 @@ class OrderModel extends ChangeNotifier {
 }
 
 class OrderItemModel {
-  Food food;
+  final Food food;
   int quantity;
 
-  //OrderItemModel getOrderItemById(String id) {}
-
-  // int get itemNumber => quantity;
-
-  // set addQuantity(int number) {
-  //   quantity = quantity + number;
-  // }
-
   OrderItemModel({required this.food, this.quantity = 1});
+
+  factory OrderItemModel.fromFirestore(Map<String, dynamic> data) {
+    return OrderItemModel(
+      food: Food.fromFirestore(data['food']),
+      quantity: data['quantity'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'food': food.toFirestore(),
+      'quantity': quantity,
+    };
+  }
 
   @override
   String toString() {

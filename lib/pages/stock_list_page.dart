@@ -10,18 +10,13 @@ import 'package:provider/provider.dart';
 class StockListPage extends StatelessWidget {
   StockListPage({super.key});
 
-  final restaurant = RestaurantModel();
-
-  void onTap() {
-    print('clicked');
-  }
+  final restaurant =
+      RestaurantModel(name: 'Sunny Restaurant', location: "Otaniemi");
 
   final String restaurantName = "Sunny Restaurant";
 
   @override
   Widget build(BuildContext context) {
-    //var order = context.watch<OrderModel>();
-
     void addToOrder(String id, OrderModel order) {
       order.addItemToOrder(id);
       print(order.items);

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => OrderModel()),
+        ChangeNotifierProvider(create: (context) => OrderModel.newOrder()),
       ],
       child: CupertinoApp(
         title: 'Namer App',

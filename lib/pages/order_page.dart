@@ -2,13 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/stock_item.dart';
 import 'package:flutter_test_project/models/order_model.dart';
-import 'package:flutter_test_project/models/restaurant_model.dart';
+
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
 
 class BasketPage extends StatelessWidget {
   BasketPage({super.key});
 
-  final restaurant = RestaurantModel();
+  final db = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser!;
+
+  Future<void> saveOrder(OrderModel order) async {
+    order.totalPrice = order.total;
+    order.orderId = Uuid().v1();
+    order.orderTime = DateTime.now();
+    order.userId = user.uid;
+    await db.collection('orders').doc(order.orderId).set(order.toFirestore());
+    order.clearCart();
+    print(order.items);
+  }
 
   final String restaurantName = "Sunny Restaurant";
   @override
@@ -67,12 +81,14 @@ class BasketPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'Price: ${order.totalPrice} Euro',
+                          'Price: ${order.total} Euro',
                           style: TextStyle(fontSize: 25),
                         ),
                         SizedBox(width: 30),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              saveOrder(order);
+                            },
                             icon: Icon(
                               size: 50,
                               Icons.shopping_cart_checkout,
