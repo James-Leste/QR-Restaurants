@@ -49,7 +49,8 @@ class StockItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(food.name),
-                          Text(food.price.toString()),
+                          SizedBox(height: 10),
+                          Text('${food.price.toString()} Euro'),
                         ],
                       )),
                 ),
