@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_project/components/stock_item.dart';
+import 'package:flutter_test_project/components/shop_item.dart';
+
+import 'package:flutter_test_project/models/food.dart';
 
 import 'package:flutter_test_project/models/order_model.dart';
 
@@ -47,11 +49,14 @@ class StockListPage extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: restaurant.menu.length,
                         itemBuilder: (context, index) {
+                          Food item = restaurant.menu.elementAt(index);
                           return ListTile(
                             title: Center(
-                              child: StockItem(
-                                  imagePath: 'lib/images/cutlery.png',
-                                  food: restaurant.menu.elementAt(index),
+                              child: ShoppingItem(
+                                  name: item.name,
+                                  price: item.price,
+                                  imageUrl: 'lib/images/google.png',
+                                  description: item.name,
                                   add: () {
                                     String foodId =
                                         restaurant.menu.elementAt(index).id;
@@ -67,12 +72,27 @@ class StockListPage extends StatelessWidget {
                                   count: order.items.isEmpty
                                       ? 0
                                       : order.getQuantityById(
-                                          restaurant.menu.elementAt(index).id)
-                                  // context.watch<OrderModel>().basket.isEmpty
-                                  //     ? 0
-                                  //     : context.watch<OrderModel>().basket[
-                                  //         restaurant.foodList.elementAt(index).id]!,
-                                  ),
+                                          restaurant.menu.elementAt(index).id)),
+                              // child: StockItem(
+                              //     imagePath: 'lib/images/cutlery.png',
+                              //     food: restaurant.menu.elementAt(index),
+                              //     add: () {
+                              //       String foodId =
+                              //           restaurant.menu.elementAt(index).id;
+                              //       print('add one $foodId ');
+                              //       addToOrder(foodId, order);
+                              //     },
+                              //     cut: () {
+                              //       String foodId =
+                              //           restaurant.menu.elementAt(index).id;
+                              //       print('remove one $foodId ');
+                              //       removeItem(foodId, order);
+                              //     },
+                              //     count: order.items.isEmpty
+                              //         ? 0
+                              //         : order.getQuantityById(
+                              //             restaurant.menu.elementAt(index).id)
+                              //    ),
                             ),
                           );
                         },

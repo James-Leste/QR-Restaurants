@@ -24,8 +24,16 @@ class StockItem extends StatelessWidget {
         padding: EdgeInsets.only(top: 50),
         //margin: EdgeInsets.symmetric(horizontal: ),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
-            color: Colors.blue.shade100),
+          color: const Color(0xFFf5f5f5),
+          borderRadius: BorderRadius.circular(35.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 4.0,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

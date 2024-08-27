@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_project/components/stock_item.dart';
+import 'package:flutter_test_project/components/order_item.dart';
+import 'package:flutter_test_project/models/food.dart';
 import 'package:flutter_test_project/models/order_model.dart';
 
 import 'package:provider/provider.dart';
@@ -44,11 +45,12 @@ class BasketPage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: order.items.length,
                       itemBuilder: (context, index) {
+                        Food item = order.items.elementAt(index).food;
                         return ListTile(
                           title: Center(
                             child: StockItem(
                                 imagePath: 'lib/images/cutlery.png',
-                                food: order.items.elementAt(index).food,
+                                food: item,
                                 add: () {
                                   String foodId = order.itemIds[index];
                                   print('add one $foodId ');

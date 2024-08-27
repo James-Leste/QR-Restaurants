@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_project/components/list_card.dart';
+
+import 'package:flutter_test_project/components/shop_item.dart';
 
 class UserPage extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
@@ -11,30 +14,41 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: CupertinoPageScaffold(
-            child: DefaultTextStyle(
-      style: TextStyle(fontSize: 25, color: Colors.black),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Email: ${user.email}',
-          ),
-          SizedBox(height: 20),
-          Text('Displayed name: ${user.displayName}'),
-          SizedBox(height: 20),
-          Text('Verified? ${user.emailVerified}'),
-          SizedBox(height: 20),
-          Text('refreshToken: ${user.refreshToken}'),
-          SizedBox(height: 20),
-          Text('Displayed name: ${user.displayName}'),
-          SizedBox(height: 20),
-          Text('Displayed name: ${user.displayName}'),
-          SizedBox(height: 20),
-          Text('Displayed name: ${user.displayName}'),
-          SizedBox(height: 20),
-          Text('Displayed name: ${user.displayName}'),
+          CustomCard(
+              text: 'User Profile',
+              icon: Icons.arrow_forward,
+              onTap: () {
+                print('object');
+              }),
+          CustomCard(
+              text: 'Order History',
+              icon: Icons.arrow_forward,
+              onTap: () {
+                print('object');
+              }),
+          CustomCard(
+              text: 'Favorites',
+              icon: Icons.arrow_forward,
+              onTap: () {
+                print('object');
+              }),
+          CustomCard(
+              text: 'Payment Methods',
+              icon: Icons.arrow_forward,
+              onTap: () {
+                print('object');
+              }),
+          // ShoppingItem(
+          //   name: 'name',
+          //   price: 123,
+          //   imageUrl: 'lib/images/cutlery.png',
+          //   description: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          // )
         ],
       ),
-    )));
+    ));
   }
 }
