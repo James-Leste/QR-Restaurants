@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test_project/models/order_model.dart';
 
-import 'package:flutter_test_project/pages/auth_page.dart';
+import 'package:flutter_test_project/pages/authentication/auth_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
