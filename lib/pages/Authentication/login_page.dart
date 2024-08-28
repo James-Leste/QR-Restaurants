@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/notification_card.dart';
 import 'package:flutter_test_project/services/auth/auth_services.dart';
 
-import '../components/my_inputField.dart';
-import '../components/my_button.dart';
-import '../components/square_tile.dart';
+import '../../components/my_inputField.dart';
+import '../../components/my_button.dart';
+import '../../components/square_tile.dart';
 
 class LoginPage extends StatefulWidget {
   final Function interfaceSwitch;

@@ -48,7 +48,7 @@ class BasketPage extends StatelessWidget {
                         Food item = order.items.elementAt(index).food;
                         return ListTile(
                           title: Center(
-                            child: StockItem(
+                            child: OrderItem(
                                 imagePath: 'lib/images/cutlery.png',
                                 food: item,
                                 add: () {

@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/models/food.dart';
 
-class StockItem extends StatelessWidget {
+class OrderItem extends StatelessWidget {
   final String imagePath;
   final Food food;
   final Function()? add;
   final Function()? cut;
   final int count;
 
-  StockItem(
+  OrderItem(
       {super.key,
       required this.imagePath,
       required this.add,

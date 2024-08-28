@@ -24,7 +24,7 @@ class ShoppingItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 12.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFFf5f5f5),
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
