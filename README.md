@@ -114,6 +114,14 @@ _Italic text represents functionality that will not be displayed in the app but 
 
 -   Based on restaurant needs, payment can be initiated at the time of order confirmation.
 
+## Screenshots
+
+<p float="left">
+  <img src="./README_image/login_page.png" width="30%" />
+  <img src="./README_image/menu_list.png" width="30%" /> 
+  <img src="./README_image/order_list.png" width="30%" />
+</p>
+
 ## How to Run the Flutter Project on iOS
 
 ### Prerequisites
