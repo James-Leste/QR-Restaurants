@@ -9,7 +9,7 @@ class OrderModel extends ChangeNotifier {
       RestaurantModel(name: 'Sunny Restaurant', location: "Otaniemi");
 
   List<OrderItemModel> items;
-  DateTime? orderTime;
+  Timestamp? orderTime;
   String? userId;
   String? orderId;
   double? totalPrice;
@@ -119,6 +119,11 @@ class OrderModel extends ChangeNotifier {
           .map((item) => item.food.price * item.quantity)
           .toList()
           .reduce((x, y) => x + y);
+
+  @override
+  String toString() {
+    return 'price: $totalPrice; Items: ${items.toString()}';
+  }
 }
 
 class OrderItemModel {

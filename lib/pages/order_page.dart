@@ -18,7 +18,7 @@ class BasketPage extends StatelessWidget {
   Future<void> saveOrder(OrderModel order) async {
     order.totalPrice = order.total;
     order.orderId = Uuid().v1();
-    order.orderTime = DateTime.now();
+    order.orderTime = Timestamp.now();
     order.userId = user.uid;
     await db.collection('orders').doc(order.orderId).set(order.toFirestore());
     order.clearCart();

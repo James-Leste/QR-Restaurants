@@ -7,7 +7,7 @@ class FireStoreService {
   Future<void> placeOrder(Map<Food, int> list, String email) async {
     await orders.add({
       'foodList': list,
-      'orderTime': DateTime.now(),
+      'orderTime': Timestamp.now(),
       'email': email,
     });
   }

@@ -2,18 +2,18 @@ class Food {
   final String id;
   final String name;
   final double price;
-  final String imagePath;
+  final String? imagePath;
 
   Food(
       {required this.id,
       required this.name,
       required this.price,
-      required this.imagePath});
+      this.imagePath});
 
   factory Food.fromFirestore(Map<String, dynamic> data) {
     return Food(
-      id: data['food'],
-      name: data['quantity'],
+      id: data['id'],
+      name: data['name'],
       price: data['price'],
       imagePath: data['imagePath'],
     );
@@ -24,7 +24,7 @@ class Food {
       'id': id,
       'name': name,
       'price': price,
-      'imagePath': imagePath,
+      //'imagePath': imagePath,
     };
   }
 }
