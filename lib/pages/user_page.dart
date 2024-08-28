@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/list_card.dart';
-import 'package:flutter_test_project/pages/order_history.dart';
+import 'package:flutter_test_project/pages/personal/order_history.dart';
+import 'package:flutter_test_project/pages/personal/userInfo_page.dart';
 
 class UserPage extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
@@ -20,7 +21,7 @@ class UserPage extends StatelessWidget {
             text: 'User Profile',
             icon: Icons.arrow_forward,
             onTap: () => Navigator.push(context,
-                CupertinoPageRoute(builder: (context) => OrderHistory()))),
+                CupertinoPageRoute(builder: (context) => UserinfoPage()))),
 
         CustomCard(
             text: 'Order History',

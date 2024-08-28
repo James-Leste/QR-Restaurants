@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test_project/models/order_model.dart';
@@ -24,6 +25,9 @@ class OrderHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Purchase History'),
+      ),
       child: FutureBuilder(
           future: fetchOrders(user?.uid),
           builder: (context, snapshot) {
