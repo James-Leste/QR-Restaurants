@@ -24,7 +24,7 @@ class OrderItem extends StatelessWidget {
         padding: EdgeInsets.only(top: 50),
         //margin: EdgeInsets.symmetric(horizontal: ),
         decoration: BoxDecoration(
-          color: const Color(0xFFf5f5f5),
+          color: CupertinoColors.systemGrey6,
           borderRadius: BorderRadius.circular(35.0),
           boxShadow: [
             BoxShadow(
@@ -44,8 +44,8 @@ class OrderItem extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 20, right: 30, left: 20),
                   child: Image.asset(
                     imagePath,
-                    height: 80,
-                    width: 80,
+                    height: 50,
+                    width: 50,
                   ),
                 ),
                 Flexible(
