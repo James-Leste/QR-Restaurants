@@ -1,19 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_project/models/food.dart';
 
 class ShoppingItem extends StatelessWidget {
-  final String name;
-  final double price;
-  final String imageUrl;
-  final String description;
+  final Food food;
   final Function()? add;
   final Function()? cut;
   final int count;
 
   ShoppingItem(
-      {required this.name,
-      required this.price,
-      required this.imageUrl,
-      required this.description,
+      {required this.food,
       required this.add,
       required this.cut,
       required this.count});
@@ -24,7 +20,7 @@ class ShoppingItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 12.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: const Color(0xFFf5f5f5),
+        color: CupertinoColors.systemGrey6, //const Color(0xFFf5f5f5),
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
@@ -41,9 +37,9 @@ class ShoppingItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
             child: Image.asset(
-              imageUrl,
-              width: 100.0,
-              height: 100.0,
+              food.imagePath.toString(),
+              width: 50.0,
+              height: 50.0,
               fit: BoxFit.cover,
             ),
           ),
@@ -56,7 +52,7 @@ class ShoppingItem extends StatelessWidget {
               children: [
                 // Item Name
                 Text(
-                  name,
+                  food.name,
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -68,7 +64,7 @@ class ShoppingItem extends StatelessWidget {
 
                 // Item Description (single line with ellipsis)
                 Text(
-                  description,
+                  food.name,
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.black54,
@@ -80,7 +76,7 @@ class ShoppingItem extends StatelessWidget {
 
                 // Item Price
                 Text(
-                  '\$${price.toStringAsFixed(2)}',
+                  '\$${food.price.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.green[700],

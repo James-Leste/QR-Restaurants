@@ -12,45 +12,53 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: CupertinoPageScaffold(
-            child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomCard(
-            text: 'User Profile',
-            icon: Icons.arrow_forward,
-            onTap: () => Navigator.push(context,
-                CupertinoPageRoute(builder: (context) => UserinfoPage()))),
+    return CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text('Personal'),
+        ),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomCard(
+                  text: 'User Profile',
+                  icon: Icons.arrow_forward,
+                  onTap: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => UserinfoPage()))),
 
-        CustomCard(
-            text: 'Order History',
-            icon: Icons.arrow_forward,
-            onTap: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => OrderHistory()));
-            }),
-        CustomCard(
-            text: 'Favorites',
-            icon: Icons.arrow_forward,
-            onTap: () {
-              print('object');
-            }),
-        CustomCard(
-            text: 'Payment Methods',
-            icon: Icons.arrow_forward,
-            onTap: () {
-              print('object');
-            }),
+              CustomCard(
+                  text: 'Order History',
+                  icon: Icons.arrow_forward,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => OrderHistory()));
+                  }),
+              CustomCard(
+                  text: 'Favorites',
+                  icon: Icons.arrow_forward,
+                  onTap: () {
+                    print('object');
+                  }),
+              CustomCard(
+                  text: 'Payment Methods',
+                  icon: Icons.arrow_forward,
+                  onTap: () {
+                    print('object');
+                  }),
 
-        //     // ShoppingItem(
-        //     //   name: 'name',
-        //     //   price: 123,
-        //     //   imageUrl: 'lib/images/cutlery.png',
-        //     //   description: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        //     // )
-      ],
-      // ),
-    )));
+              //     // ShoppingItem(
+              //     //   name: 'name',
+              //     //   price: 123,
+              //     //   imageUrl: 'lib/images/cutlery.png',
+              //     //   description: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              //     // )
+            ],
+            // ),
+          ),
+        ));
   }
 }

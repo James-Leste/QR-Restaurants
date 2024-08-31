@@ -139,6 +139,7 @@
 //   }
 // }
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatefulWidget {
@@ -150,7 +151,8 @@ class CustomCard extends StatefulWidget {
   CustomCard({
     required this.text,
     required this.icon,
-    this.color = const Color(0xFFf5f5f5), // Default color
+    this.color =
+        CupertinoColors.systemGrey6, //const Color(0xFFf5f5f5), // Default color
     required this.onTap,
   });
 

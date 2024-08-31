@@ -47,6 +47,7 @@ class UserinfoPage extends StatelessWidget {
       required String title,
       required String subtitle}) {
     return Card(
+      color: CupertinoColors.systemGrey6,
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         leading: Icon(icon, color: CupertinoColors.activeBlue),

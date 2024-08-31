@@ -53,10 +53,7 @@ class StockListPage extends StatelessWidget {
                           return ListTile(
                             title: Center(
                               child: ShoppingItem(
-                                  name: item.name,
-                                  price: item.price,
-                                  imageUrl: 'lib/images/google.png',
-                                  description: item.name,
+                                  food: item,
                                   add: () {
                                     String foodId =
                                         restaurant.menu.elementAt(index).id;

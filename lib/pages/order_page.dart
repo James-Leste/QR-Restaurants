@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_project/components/order_item.dart';
+import 'package:flutter_test_project/components/shop_item.dart';
 import 'package:flutter_test_project/models/food.dart';
 import 'package:flutter_test_project/models/order_model.dart';
 
@@ -32,7 +32,7 @@ class BasketPage extends StatelessWidget {
       return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: Text(
-              'Menu: $restaurantName',
+              'Order: $restaurantName',
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -48,8 +48,7 @@ class BasketPage extends StatelessWidget {
                         Food item = order.items.elementAt(index).food;
                         return ListTile(
                           title: Center(
-                            child: OrderItem(
-                                imagePath: 'lib/images/cutlery.png',
+                            child: ShoppingItem(
                                 food: item,
                                 add: () {
                                   String foodId = order.itemIds[index];
