@@ -1,5 +1,7 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test_project/models/order_model.dart';
+import 'package:flutter_test_project/observers/user_observer.dart';
 
 import 'package:flutter_test_project/pages/authentication/auth_page.dart';
 
@@ -9,6 +11,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = UserObserver();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
