@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UserinfoPage extends StatelessWidget {
-  final String userName = "John Doe";
+  final String userName = "John";
   final String userEmail = "john.doe@example.com";
   final String userPhone = "+1 234 567 890";
   final String userAddress = "123 Main St, Springfield, USA";
@@ -45,15 +45,19 @@ class UserinfoPage extends StatelessWidget {
   Widget _buildUserInfoTile(
       {required IconData icon,
       required String title,
-      required String subtitle}) {
+      required String subtitle,
+      Function? onTap}) {
     return Card(
       color: CupertinoColors.systemGrey6,
       margin: EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        leading: Icon(icon, color: CupertinoColors.activeBlue),
-        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(subtitle),
-        trailing: Icon(CupertinoIcons.forward),
+      child: InkWell(
+        onTap: () => onTap,
+        child: ListTile(
+          leading: Icon(icon, color: CupertinoColors.activeBlue),
+          title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+          subtitle: Text(subtitle),
+          trailing: Icon(CupertinoIcons.forward),
+        ),
       ),
     );
   }

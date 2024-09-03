@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/list_card.dart';
@@ -6,8 +5,6 @@ import 'package:flutter_test_project/pages/personal/order_history.dart';
 import 'package:flutter_test_project/pages/personal/userInfo_page.dart';
 
 class UserPage extends StatelessWidget {
-  final user = FirebaseAuth.instance.currentUser!;
-
   UserPage({super.key});
 
   @override
