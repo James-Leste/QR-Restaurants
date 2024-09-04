@@ -97,14 +97,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
-  english_words:
+  equatable:
     dependency: "direct main"
     description:
-      name: english_words
-      sha256: "6a7ef6473a97bd8571b6b641d006a6e58a7c67e65fb6f3d6d1151cb46b0e983c"
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
