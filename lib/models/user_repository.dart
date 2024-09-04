@@ -6,7 +6,7 @@ enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 class UserRepository extends ChangeNotifier {
   FirebaseAuth _auth;
   User? _user;
-  Status _status = Status.Unauthenticated;
+  Status _status = Status.Uninitialized;
 
   UserRepository.instance() : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
