@@ -1,34 +1,47 @@
-import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-/// {@template user}
-/// User model
-///
-/// [User.empty] represents an unauthenticated user.
-/// {@endtemplate}
-class User extends Equatable {
-  /// {@macro user}
-  const User({
-    required this.id,
-    this.email,
-    this.name,
-    this.photo,
-  });
+enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
-  /// The current user's email address.
-  final String? email;
+class UserRepository extends ChangeNotifier {
+  FirebaseAuth _auth;
+  User? _user;
+  Status _status = Status.Unauthenticated;
 
-  /// The current user's id.
-  final String id;
+  UserRepository.instance() : _auth = FirebaseAuth.instance {
+    _auth.authStateChanges().listen(_onAuthStateChanged);
+  }
 
-  /// The current user's name (display name).
-  final String? name;
+  Future<bool> signIn(String email, String password) async {
+    try {
+      _status = Status.Authenticating;
+      notifyListeners();
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return true;
+    } catch (e) {
+      _status = Status.Unauthenticated;
+      notifyListeners();
+      return false;
+    }
+  }
 
-  /// Url for the current user's photo.
-  final String? photo;
+  Future signOut() async {
+    _auth.signOut();
+    _status = Status.Unauthenticated;
+    notifyListeners();
+    return Future.delayed(Duration.zero);
+  }
 
-  /// Empty user which represents an unauthenticated user.
-  static const empty = User(id: '');
+  Future<void> _onAuthStateChanged(User? user) async {
+    if (user == null) {
+      _status = Status.Unauthenticated;
+    } else {
+      _user = user;
+      _status = Status.Authenticated;
+    }
+    notifyListeners();
+  }
 
-  @override
-  List<Object?> get props => [email, id, name, photo];
+  Status get status => _status;
+  User? get user => _user;
 }
