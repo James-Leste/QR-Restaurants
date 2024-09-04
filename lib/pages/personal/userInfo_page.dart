@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,35 +9,38 @@ class UserinfoPage extends StatelessWidget {
   final String userAddress = "123 Main St, Springfield, USA";
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('User Information'),
-      ),
-      child: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.all(16.0),
-          children: <Widget>[
-            _buildUserInfoTile(
-              icon: CupertinoIcons.person,
-              title: "Name",
-              subtitle: userName,
-            ),
-            _buildUserInfoTile(
-              icon: CupertinoIcons.mail,
-              title: "Email",
-              subtitle: userEmail,
-            ),
-            _buildUserInfoTile(
-              icon: CupertinoIcons.phone,
-              title: "Phone",
-              subtitle: userPhone,
-            ),
-            _buildUserInfoTile(
-              icon: CupertinoIcons.location,
-              title: "Address",
-              subtitle: userAddress,
-            ),
-          ],
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (context, snapshot) => CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text('User Information'),
+        ),
+        child: SafeArea(
+          child: ListView(
+            padding: EdgeInsets.all(16.0),
+            children: <Widget>[
+              _buildUserInfoTile(
+                icon: CupertinoIcons.person,
+                title: "Name",
+                subtitle: userName,
+              ),
+              _buildUserInfoTile(
+                icon: CupertinoIcons.mail,
+                title: "Email",
+                subtitle: userEmail,
+              ),
+              _buildUserInfoTile(
+                icon: CupertinoIcons.phone,
+                title: "Phone",
+                subtitle: userPhone,
+              ),
+              _buildUserInfoTile(
+                icon: CupertinoIcons.location,
+                title: "Address",
+                subtitle: userAddress,
+              ),
+            ],
+          ),
         ),
       ),
     );

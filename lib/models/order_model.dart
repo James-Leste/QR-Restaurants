@@ -5,7 +5,7 @@ import 'package:flutter_test_project/models/food.dart';
 import 'package:flutter_test_project/models/restaurant_model.dart';
 
 class OrderModel extends ChangeNotifier {
-  RestaurantModel _restaurantModel =
+  static final RestaurantModel _restaurantModel =
       RestaurantModel(name: 'Sunny Restaurant', location: "Otaniemi");
 
   List<OrderItemModel> items;
@@ -54,13 +54,13 @@ class OrderModel extends ChangeNotifier {
     };
   }
 
-  set catalog(RestaurantModel newRestaurant) {
-    _restaurantModel = newRestaurant;
-    // Notify listeners, in case the new catalog provides information
-    // different from the previous one. For example, availability of an item
-    // might have changed.
-    notifyListeners();
-  }
+  // set catalog(RestaurantModel newRestaurant) {
+  //   _restaurantModel = newRestaurant;
+  //   // Notify listeners, in case the new catalog provides information
+  //   // different from the previous one. For example, availability of an item
+  //   // might have changed.
+  //   notifyListeners();
+  // }
 
   // get a list of itemIds
   List<String> get itemIds => items.map((item) => item.food.id).toList();
