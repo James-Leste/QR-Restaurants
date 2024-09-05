@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/notification_card.dart';
 import 'package:flutter_test_project/models/user_repository.dart';
-import 'package:flutter_test_project/services/auth/auth_services.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../components/my_inputField.dart';
@@ -106,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text('Forget password?',
+                            Text('Forgot password?',
                                 style: TextStyle(color: Colors.grey[700]))
                           ],
                         ),
@@ -121,14 +123,11 @@ class _LoginPageState extends State<LoginPage> {
                           //         child: CircularProgressIndicator(),
                           //       );
                           //     });
-                          try {
-                            await user.signIn(
-                                emailController.text, passwordController.text);
-
-                            //Navigator.pop(context);
-                          } catch (e) {
-                            //Navigator.pop(context);
-                            failedMessage(e.toString());
+                          log('Using Email ${emailController.text} to login');
+                          bool result = await user.signIn(
+                              emailController.text, passwordController.text);
+                          if (!result) {
+                            failedMessage("Error in login");
                           }
                         },
                         buttonLabel: 'Sign In',

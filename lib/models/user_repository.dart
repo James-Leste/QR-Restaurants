@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
@@ -18,9 +19,11 @@ class UserRepository extends ChangeNotifier {
       notifyListeners();
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return true;
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       _status = Status.Unauthenticated;
+
       notifyListeners();
+      print(e.code);
       return false;
     }
   }
