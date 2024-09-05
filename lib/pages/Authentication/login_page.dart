@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         child: Consumer<UserRepository>(builder: (context, user, child) {
           return SafeArea(
               child: Center(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,24 @@ class UserRepository extends ChangeNotifier {
       _status = Status.Unauthenticated;
 
       notifyListeners();
-      print(e.code);
+      log(e.code);
+      return false;
+    }
+  }
+
+  Future<bool> signUp(String email, String password) async {
+    try {
+      _status = Status.Authenticating;
+      notifyListeners();
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      await _auth.signOut();
+      _status = Status.Unauthenticated;
+      return true;
+    } on FirebaseAuthException catch (e) {
+      _status = Status.Unauthenticated;
+      notifyListeners();
+      log(e.code);
       return false;
     }
   }
