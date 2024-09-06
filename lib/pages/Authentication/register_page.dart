@@ -5,7 +5,7 @@ import 'package:flutter_test_project/components/my_button.dart';
 import 'package:flutter_test_project/components/my_inputField.dart';
 import 'package:flutter_test_project/components/notification_card.dart';
 import 'package:flutter_test_project/components/square_tile.dart';
-import 'package:flutter_test_project/models/user_repository.dart';
+import 'package:flutter_test_project/repositories/user_repository.dart';
 import 'package:flutter_test_project/services/auth/auth_services.dart';
 import 'package:provider/provider.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/models/order_model.dart';
-import 'package:flutter_test_project/models/user_repository.dart';
+import 'package:flutter_test_project/repositories/user_repository.dart';
 
 import 'package:flutter_test_project/pages/home_page.dart';
 import 'package:flutter_test_project/pages/authentication/login_or_register_page.dart';

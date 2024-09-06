@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_project/models/user_repository.dart';
+import 'package:flutter_test_project/repositories/user_repository.dart';
 import 'package:provider/provider.dart';
 
 class UserinfoPage extends StatelessWidget {
@@ -51,6 +51,7 @@ class UserinfoPage extends StatelessWidget {
       required String title,
       required String subtitle,
       Function? onTap}) {
+    // Card has a default borderRadius 8.0
     return Card(
       color: CupertinoColors.systemGrey6,
       margin: EdgeInsets.symmetric(vertical: 8.0),
