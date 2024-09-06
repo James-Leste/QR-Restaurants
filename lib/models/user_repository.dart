@@ -36,8 +36,6 @@ class UserRepository extends ChangeNotifier {
       notifyListeners();
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await _auth.signOut();
-      _status = Status.Unauthenticated;
       return true;
     } on FirebaseAuthException catch (e) {
       _status = Status.Unauthenticated;
@@ -66,4 +64,8 @@ class UserRepository extends ChangeNotifier {
 
   Status get status => _status;
   User? get user => _user;
+  String? get email => _user?.email.toString();
+  String? get displayName => _user?.displayName.toString();
+  String? get phone => _user?.phoneNumber.toString();
+  String? get photoUrl => _user?.photoURL.toString();
 }

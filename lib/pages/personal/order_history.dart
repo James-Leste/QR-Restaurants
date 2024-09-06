@@ -43,7 +43,11 @@ class OrderHistory extends StatelessWidget {
                 return Center(child: Text("Error: ${snapshot.error}"));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(
-                    child: Text("No orders found for user '${user?.uid}'"));
+                    child: Text(
+                  "No orders found for user '${user?.email}'",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ));
               } else {
                 List<OrderModel> orders = snapshot.data!;
                 //return Text('data');

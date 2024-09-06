@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_project/models/user_repository.dart';
+import 'package:provider/provider.dart';
 
 class UserinfoPage extends StatelessWidget {
   final String userName = "John";
@@ -9,9 +10,8 @@ class UserinfoPage extends StatelessWidget {
   final String userAddress = "123 Main St, Springfield, USA";
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.userChanges(),
-      builder: (context, snapshot) => CupertinoPageScaffold(
+    return Consumer<UserRepository>(
+      builder: (context, UserRepository user, build) => CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('User Information'),
         ),
@@ -22,22 +22,22 @@ class UserinfoPage extends StatelessWidget {
               _buildUserInfoTile(
                 icon: CupertinoIcons.person,
                 title: "Name",
-                subtitle: userName,
+                subtitle: user.displayName!,
               ),
               _buildUserInfoTile(
                 icon: CupertinoIcons.mail,
                 title: "Email",
-                subtitle: userEmail,
+                subtitle: user.email!,
               ),
               _buildUserInfoTile(
                 icon: CupertinoIcons.phone,
                 title: "Phone",
-                subtitle: userPhone,
+                subtitle: user.phone!,
               ),
               _buildUserInfoTile(
                 icon: CupertinoIcons.location,
-                title: "Address",
-                subtitle: userAddress,
+                title: "Photo URL",
+                subtitle: user.photoUrl!,
               ),
             ],
           ),
@@ -56,6 +56,7 @@ class UserinfoPage extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: InkWell(
         onTap: () => onTap,
+        borderRadius: BorderRadius.circular(8.0),
         child: ListTile(
           leading: Icon(icon, color: CupertinoColors.activeBlue),
           title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
