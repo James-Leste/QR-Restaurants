@@ -4,93 +4,64 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test_project/models/order_model.dart';
+import 'package:flutter_test_project/pages/personal/order_detail.dart';
+import 'package:flutter_test_project/repositories/order_repository.dart';
+import 'package:flutter_test_project/repositories/user_repository.dart';
+import 'package:provider/provider.dart';
 
 class OrderHistory extends StatelessWidget {
-  final user = FirebaseAuth.instance.currentUser;
-  final db = FirebaseFirestore.instance;
-  Future<List<OrderModel>> fetchOrders(String? userId) async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await db.collection('orders').where('userId', isEqualTo: userId).get();
-    //print(querySnapshot.docs[0].data());
-    // Convert each document into an OrderModel object
-
-    List<OrderModel> orders = querySnapshot.docs
-        .map((doc) => OrderModel.fromFirestore(doc, null))
-        .toList();
-    orders.sort((a, b) => b.orderTime!.microsecondsSinceEpoch
-        .compareTo(a.orderTime!.microsecondsSinceEpoch));
-
-    return orders;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Purchase History'),
-      ),
-      child: SafeArea(
-        child: FutureBuilder(
-            future: fetchOrders(user?.uid),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                //print(snapshot.data);
+    return Consumer2<OrderRepository, UserRepository>(builder: (context,
+        OrderRepository orderRepository, UserRepository userRepository, child) {
+      User? user = userRepository.user;
+      return CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text('Purchase History'),
+        ),
+        child: SafeArea(
+          child: FutureBuilder(
+              future: orderRepository.fetchOrdersByUserId(user?.uid),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  //print(snapshot.data);
 
-                return Center(child: Text("Error: ${snapshot.error}"));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(
-                    child: Text(
-                  "No orders found for user '${user?.email}'",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ));
-              } else {
-                List<OrderModel> orders = snapshot.data!;
-                //return Text('data');
-                return ListView.builder(
-                    padding: EdgeInsets.all(16.0),
-                    itemCount: orders.length,
-                    itemBuilder: (context, index) {
-                      var order = orders[index];
-                      return _buildUserOrderTile(
-                          icon: Icons.list,
-                          order: order,
-                          action: () {
-                            log('clicked');
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => CupertinoPageScaffold(
-                                          navigationBar: CupertinoNavigationBar(
-                                            middle: Text(order.orderId!),
-                                          ),
-                                          child: SafeArea(
-                                            child: ListView(
-                                                padding: EdgeInsets.all(16),
-                                                //crossAxisAlignment: CrossAxisAlignment.start,
-
-                                                children: [
-                                                  Text(
-                                                      'Items: ${order.items.toString()}'),
-                                                  SizedBox(height: 16),
-                                                  Text(
-                                                      'Order time: ${order.orderTime!.toDate().toString()}'),
-                                                  SizedBox(height: 16),
-                                                  Text(
-                                                      'User ID: ${order.userId}')
-                                                ]),
-                                          ),
-                                        )));
-                          });
-                    });
-              }
-            }),
-      ),
-    );
+                  return Center(child: Text("Error: ${snapshot.error}"));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(
+                      child: Text(
+                    "No orders found for user '${user?.email}'",
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ));
+                } else {
+                  List<OrderModel> orders = snapshot.data!;
+                  //return Text('data');
+                  return ListView.builder(
+                      padding: EdgeInsets.all(16.0),
+                      itemCount: orders.length,
+                      itemBuilder: (context, index) {
+                        var order = orders[index];
+                        return _buildUserOrderTile(
+                            icon: Icons.list,
+                            order: order,
+                            action: () {
+                              log('clicked');
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          OrderDetail(order: order)));
+                            });
+                      });
+                }
+              }),
+        ),
+      );
+    });
   }
 
   Widget _buildUserOrderTile(
