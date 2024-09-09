@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/shop_item.dart';
@@ -16,6 +18,9 @@ class BasketPage extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
 
   Future<void> saveOrder(OrderModel order) async {
+    if (order.items.isEmpty) {
+      throw Exception('Empty Basket!');
+    }
     order.totalPrice = order.total;
     order.orderId = Uuid().v1();
     order.orderTime = Timestamp.now();
@@ -87,8 +92,13 @@ class BasketPage extends StatelessWidget {
                         ),
                         SizedBox(width: 30),
                         IconButton(
-                            onPressed: () {
-                              saveOrder(order);
+                            onPressed: () async {
+                              try {
+                                await saveOrder(order);
+                              } catch (e) {
+                                log(e.toString());
+                                return;
+                              }
                             },
                             icon: Icon(
                               size: 50,
