@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_project/models/order_model.dart';
+import 'package:flutter_test_project/repositories/order_repository.dart';
 import 'package:flutter_test_project/repositories/user_repository.dart';
 
 import 'package:flutter_test_project/pages/home_page.dart';
@@ -14,7 +15,8 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => UserRepository.instance())
+        ChangeNotifierProvider(create: (context) => UserRepository.instance()),
+        ChangeNotifierProvider(create: (context) => OrderRepository())
       ],
       child: Consumer<UserRepository>(
           builder: (context, UserRepository user, child) {
