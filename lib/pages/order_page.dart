@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_project/components/shop_item.dart';
 import 'package:flutter_test_project/models/food.dart';
 import 'package:flutter_test_project/models/order_model.dart';
+import 'package:flutter_test_project/repositories/order_repository.dart';
 
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,7 +15,7 @@ import 'package:uuid/uuid.dart';
 class BasketPage extends StatelessWidget {
   BasketPage({super.key});
 
-  final db = FirebaseFirestore.instance;
+  final orderRepository = OrderRepository();
   final user = FirebaseAuth.instance.currentUser!;
 
   Future<void> saveOrder(OrderModel order) async {
@@ -25,7 +26,7 @@ class BasketPage extends StatelessWidget {
     order.orderId = Uuid().v1();
     order.orderTime = Timestamp.now();
     order.userId = user.uid;
-    await db.collection('orders').doc(order.orderId).set(order.toFirestore());
+    await orderRepository.addOrder(order);
     order.clearCart();
     print(order.items);
   }

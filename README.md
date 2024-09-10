@@ -7,7 +7,7 @@ A smooth and beautiful restaurant management system and its corresponding user-e
 ![overall abstraction](./README_image/system.gif "overall abstraction")
 _Overall abstraction_
 
-## Funtionalities
+## Functionalities
 
 ### Interfaces
 
