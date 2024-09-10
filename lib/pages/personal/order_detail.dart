@@ -2,15 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test_project/models/order_model.dart';
 import 'package:flutter_test_project/repositories/order_repository.dart';
 
-class OrderDetail extends StatelessWidget {
+class OrderDetail extends StatefulWidget {
   OrderDetail({super.key, required this.order});
   final OrderModel order;
+
+  @override
+  State<OrderDetail> createState() => _OrderDetailState();
+}
+
+class _OrderDetailState extends State<OrderDetail> {
   final OrderRepository orderRepository = OrderRepository();
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(order.orderId!),
+        middle: Text(widget.order.orderId!),
       ),
       child: SafeArea(
         child: Column(
@@ -21,11 +28,12 @@ class OrderDetail extends StatelessWidget {
                   //crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    Text('Items: ${order.items.toString()}'),
+                    Text('Items: ${widget.order.items.toString()}'),
                     SizedBox(height: 16),
-                    Text('Order time: ${order.orderTime!.toDate().toString()}'),
+                    Text(
+                        'Order time: ${widget.order.orderTime!.toDate().toString()}'),
                     SizedBox(height: 16),
-                    Text('User ID: ${order.userId}')
+                    Text('User ID: ${widget.order.userId}')
                   ]),
             ),
             Padding(
@@ -35,8 +43,11 @@ class OrderDetail extends StatelessWidget {
                 children: [
                   CupertinoButton.filled(
                       onPressed: () async {
-                        Navigator.pop(context);
-                        await orderRepository.deleteOrderById(order.orderId!);
+                        await orderRepository
+                            .deleteOrderById(widget.order.orderId!);
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
                       },
                       child: Text('delete')),
                 ],

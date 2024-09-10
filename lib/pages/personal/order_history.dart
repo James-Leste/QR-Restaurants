@@ -10,7 +10,27 @@ import 'package:flutter_test_project/repositories/order_repository.dart';
 import 'package:flutter_test_project/repositories/user_repository.dart';
 import 'package:provider/provider.dart';
 
-class OrderHistory extends StatelessWidget {
+class OrderHistory extends StatefulWidget {
+  @override
+  State<OrderHistory> createState() => _OrderHistoryState();
+}
+
+class _OrderHistoryState extends State<OrderHistory> {
+  // late Future<List<OrderModel>> _orderFuture;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _orderFuture = fetchOrders(); // Fetch orders initially
+  // }
+
+  // Future<List<OrderModel>> fetchOrders() async {
+  //   final userRepository = Provider.of<UserRepository>(context, listen: false);
+  //   final orderRepository =
+  //       Provider.of<OrderRepository>(context, listen: false);
+  //   return await orderRepository.fetchOrdersByUserId(userRepository.user?.uid);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Consumer2<OrderRepository, UserRepository>(builder: (context,
@@ -22,7 +42,8 @@ class OrderHistory extends StatelessWidget {
         ),
         child: SafeArea(
           child: FutureBuilder(
-              future: orderRepository.fetchOrdersByUserId(user?.uid),
+              future: orderRepository.fetchOrdersByUserId(
+                  user!.uid), //orderRepository.fetchOrdersByUserId(user?.uid),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -33,7 +54,7 @@ class OrderHistory extends StatelessWidget {
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(
                       child: Text(
-                    "No orders found for user '${user?.email}'",
+                    "No orders found for user '${user.email}'",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ));
@@ -51,10 +72,13 @@ class OrderHistory extends StatelessWidget {
                             action: () {
                               log('clicked');
                               Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) =>
-                                          OrderDetail(order: order)));
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              OrderDetail(order: order)))
+                                  .then((value) {
+                                setState(() {});
+                              });
                             });
                       });
                 }
