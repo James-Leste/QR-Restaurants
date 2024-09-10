@@ -38,7 +38,7 @@ class _OrderHistoryState extends State<OrderHistory> {
       User? user = userRepository.user;
       return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text('Purchase History'),
+          middle: Text('Purchase History', style: TextStyle(fontSize: 18)),
         ),
         child: SafeArea(
           child: FutureBuilder(

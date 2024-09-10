@@ -17,7 +17,12 @@ class _OrderDetailState extends State<OrderDetail> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(widget.order.orderId!),
+        middle: Text(
+          widget.order.orderId!,
+          style: TextStyle(fontSize: 18),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
       ),
       child: SafeArea(
         child: Column(

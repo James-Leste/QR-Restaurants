@@ -35,7 +35,7 @@ class StockListPage extends StatelessWidget {
           navigationBar: CupertinoNavigationBar(
             middle: Text(
               'Menu: $restaurantName',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 18),
             ),
           ),
           child: SafeArea(

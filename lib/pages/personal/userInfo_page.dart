@@ -14,7 +14,7 @@ class UserinfoPage extends StatelessWidget {
     return Consumer<UserRepository>(
       builder: (context, UserRepository user, build) => CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text('User Information'),
+          middle: Text('User Information', style: TextStyle(fontSize: 18)),
         ),
         child: SafeArea(
           child: ListView(

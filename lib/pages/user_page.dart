@@ -11,7 +11,7 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text('Personal'),
+          middle: Text('Personal', style: TextStyle(fontSize: 18)),
         ),
         child: SafeArea(
           child: Column(

@@ -39,7 +39,7 @@ class BasketPage extends StatelessWidget {
           navigationBar: CupertinoNavigationBar(
             middle: Text(
               'Order: $restaurantName',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 18),
             ),
           ),
           child: SafeArea(

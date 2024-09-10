@@ -11,29 +11,36 @@ class SettingPage extends StatelessWidget {
     return Consumer<UserRepository>(
         builder: (build, UserRepository user, child) {
       return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text(
+              'Setting',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
           child: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(20),
-              margin: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.blue[100]),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Logout",
-                    style: TextStyle(fontSize: 24),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20),
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue[100]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Logout",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      IconButton(
+                          icon: Icon(Icons.logout), onPressed: user.signOut),
+                    ],
                   ),
-                  IconButton(icon: Icon(Icons.logout), onPressed: user.signOut),
-                ],
-              ),
-            )
-          ],
-        ),
-      ));
+                )
+              ],
+            ),
+          ));
     });
   }
 }
